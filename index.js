@@ -1,6 +1,6 @@
 const express = require('express');
 const MongoUtil = require('./MongoUtil');
-
+const mongoUrl = process.env.MONGO_URL;
 // Add in the missing requires for the API to work
 const cors = require('cors');
 
