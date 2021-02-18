@@ -15,33 +15,47 @@ async function main() {
   const DBNAME = 'msw_toolbox';
   let db = await MongoUtil.connect(mongoUrl, DBNAME);
 
-  app.get('/referrals', async (req, res) => {
-    let result = await db.collection('referrals').find({}).toArray();
-    res.send(result);
-  });
-
-  app.post('/referrals', async (req, res) => {
-    let referTo = req.body.referTo;
-    let referrerName = req.body.referrerName;
-    let referrerOrg = req.body.referrerOrg;
-    let referrerEmail = req.body.referrerEmail;
-    let patientName = req.body.patientName;
-    let patientIdent = req.body.patientIdent;
-    let patientContact = req.body.patientContact;
-    let patientSR = req.body.patientSR;
-
-    let result = await db.collection('referrals').insertOne({
-      referTo: referTo,
-      referrerName: referrerName,
-      referrerOrg: referrerOrg,
-      referrerEmail: referrerEmail,
-      patientName: patientName,
-      patientIdent: patientIdent,
-      patientContact: patientContact,
-      patientSR: patientSR,
+  try {
+    app.get('/referrals', async (req, res) => {
+      let result = await db.collection('referrals').find({}).toArray();
+      res.send(result);
     });
-    res.send(result);
-  });
+  } catch (e) {
+    res.send(
+      `Apologies. API was not consumed successfully. Please contact the administrator at Github`
+    );
+    console.log(e);
+  }
+
+  try {
+    app.post('/referrals', async (req, res) => {
+      let referTo = req.body.referTo;
+      let referrerName = req.body.referrerName;
+      let referrerOrg = req.body.referrerOrg;
+      let referrerEmail = req.body.referrerEmail;
+      let patientName = req.body.patientName;
+      let patientIdent = req.body.patientIdent;
+      let patientContact = req.body.patientContact;
+      let patientSR = req.body.patientSR;
+
+      let result = await db.collection('referrals').insertOne({
+        referTo: referTo,
+        referrerName: referrerName,
+        referrerOrg: referrerOrg,
+        referrerEmail: referrerEmail,
+        patientName: patientName,
+        patientIdent: patientIdent,
+        patientContact: patientContact,
+        patientSR: patientSR,
+      });
+      res.send(result);
+    });
+  } catch (e) {
+    res.send(
+      `Apologies. API was not consumed successfully. Please contact the administrator at Github`
+    );
+    console.log(e);
+  }
 }
 
 main();
