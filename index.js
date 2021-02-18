@@ -16,7 +16,7 @@ async function main() {
   let db = await MongoUtil.connect(mongoUrl, DBNAME);
 
   app.get('/referrals', async (req, res) => {
-    let result = await db.collection('books').find({}).toArray();
+    let result = await db.collection('referrals').find({}).toArray();
     res.send(result);
   });
 
@@ -30,7 +30,7 @@ async function main() {
     let patientContact = req.body.patientContact;
     let patientSR = req.body.patientSR;
 
-    let result = await db.collection('books').insertOne({
+    let result = await db.collection('referrals').insertOne({
       referTo: referTo,
       referrerName: referrerName,
       referrerOrg: referrerOrg,
