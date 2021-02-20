@@ -1,6 +1,8 @@
 const express = require('express');
 const MongoUtil = require('./MongoUtil');
 const mongoUrl = process.env.MONGO_URL;
+const ObjectId = require('mongodb').ObjectId;
+
 // Add in the missing requires for the API to work
 const cors = require('cors');
 
@@ -15,6 +17,7 @@ async function main() {
   const DBNAME = 'msw_toolbox';
   let db = await MongoUtil.connect(mongoUrl, DBNAME);
 
+  // GET
   try {
     app.get('/referrals', async (req, res) => {
       let result = await db.collection('referrals').find({}).toArray();
@@ -27,6 +30,7 @@ async function main() {
     console.log(e);
   }
 
+  // POST
   try {
     app.post('/referrals', async (req, res) => {
       let referTo = req.body.referTo;
@@ -48,6 +52,22 @@ async function main() {
         patientContact: patientContact,
         patientSR: patientSR,
       });
+      res.send(result);
+    });
+  } catch (e) {
+    res.send(
+      `Apologies. API was not consumed successfully. Please contact the administrator at Github`
+    );
+    console.log(e);
+  }
+  // DELETE
+  try {
+    app.delete('/referrals/:referralid', async (req, res) => {
+      let id = req.params.postid;
+      let result = await db.collection('referrals').deleteOne({
+        _id: ObjectId(id),
+      });
+
       res.send(result);
     });
   } catch (e) {

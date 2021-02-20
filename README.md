@@ -14,6 +14,10 @@ Note: As this is not a secure database, please do not post any real or sensitive
 
 `POST https://polar-retreat-01092.herokuapp.com/referrals`
 
+### Process referrals (this deletes the referral from the database)
+
+`DELETE https://polar-retreat-01092.herokuapp.com/referrals`
+
 The following parameters are required:
 
 ```
