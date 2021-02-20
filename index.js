@@ -63,7 +63,7 @@ async function main() {
   // DELETE
   try {
     app.delete('/referrals/:referralid', async (req, res) => {
-      let id = req.params.postid;
+      let id = req.params.referralid;
       let result = await db.collection('referrals').deleteOne({
         _id: ObjectId(id),
       });
