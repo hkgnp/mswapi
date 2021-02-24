@@ -32,3 +32,7 @@ The following parameters are required:
     "patientSR": "",
 }
 ```
+# Credits
+
+- [MongoDB](https://www.mongodb.com/cloud/atlas)
+- [Heroku](https://www.heroku.com)
